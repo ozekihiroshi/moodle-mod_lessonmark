@@ -55,8 +55,9 @@ reviewing it again.
 On 15 September 2026, `mod_lessonmark-0.3.0-alpha2.zip` was registered as
 version `0.3.0-alpha2` (`2026091501`) for Moodle 5.2 in MMR-188. The Marketplace
 description was updated to the canonical repository URLs and to describe
-continuous course presentation accurately. The Marketplace automated test was
-still in progress at the time of this record.
+continuous course presentation accurately. The Marketplace automated test
+passed, and MMR-188 returned to the review queue with status
+**Submitted for review**.
 
 ## Checks applied to the dual-learning plugins
 
