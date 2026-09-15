@@ -6,11 +6,11 @@ Prepared for the Moodle plugins directory review of LessonMark (`mod_lessonmark`
 
 | Issue | Resolution | Main evidence |
 | --- | --- | --- |
-| [#1 Incorrect repository name](https://github.com/ozekihiroshi/LessonMark/issues/1) | The source, installation and Marketplace documentation now use the canonical repository name `moodle-mod_lessonmark`. Renaming the GitHub repository is the remaining external step. | `README.md`, `plugin/lessonmark/README.md`, `plugin/lessonmark/readme_moodle.txt`, `docs/INSTALLATION.md`, `docs/MARKETPLACE_LISTING.md` |
-| [#2 Missing plugin license file](https://github.com/ozekihiroshi/LessonMark/issues/2) | Added the complete GNU GPL v3 text as `LICENSE` at the root of the installable plugin. | `plugin/lessonmark/LICENSE` and release-package verification |
-| [#3 Update Ajax implementation to External Services](https://github.com/ozekihiroshi/LessonMark/issues/3) | Replaced the direct `preview.php` AJAX endpoint with an AJAX-enabled Moodle External Service. The editor calls it through `core/ajax`; context, login and capability checks remain server-side. | `plugin/lessonmark/classes/external/render_preview.php`, `plugin/lessonmark/db/services.php`, `plugin/lessonmark/amd/src/editor.js`; obsolete `plugin/lessonmark/preview.php` removed |
-| [#4 Missing File Boilerplate Headers](https://github.com/ozekihiroshi/LessonMark/issues/4) | Migrated first-party JavaScript to Moodle AMD source files with the standard GPL boilerplate, copyright and licence tags. An audit of first-party PHP and JS files found no missing header fields. Bundled third-party files retain their upstream licences and are declared in `thirdpartylibs.xml`. | `plugin/lessonmark/amd/src/*.js`, `plugin/lessonmark/thirdpartylibs.xml` |
-| [#5 Update JS implementation to ES6 JavaScript Modules](https://github.com/ozekihiroshi/LessonMark/issues/5) | Replaced the three root-level legacy scripts with Moodle AMD ES6 modules and load them through `js_call_amd()`. Build files were generated with Moodle 5.2 Grunt. | `plugin/lessonmark/amd/src/presentation.js`, `course-presentation.js`, `browser-print.js`, plus `course.php` and `view.php` |
+| [#1 Incorrect repository name](https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues/1) | The GitHub repository was renamed to `moodle-mod_lessonmark`, and the source, installation and Marketplace documentation use the canonical URL. | `README.md`, `plugin/lessonmark/README.md`, `plugin/lessonmark/readme_moodle.txt`, `docs/INSTALLATION.md`, `docs/MARKETPLACE_LISTING.md` |
+| [#2 Missing plugin license file](https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues/2) | Added the complete GNU GPL v3 text as `LICENSE` at the root of the installable plugin. | `plugin/lessonmark/LICENSE` and release-package verification |
+| [#3 Update Ajax implementation to External Services](https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues/3) | Replaced the direct `preview.php` AJAX endpoint with an AJAX-enabled Moodle External Service. The editor calls it through `core/ajax`; context, login and capability checks remain server-side. | `plugin/lessonmark/classes/external/render_preview.php`, `plugin/lessonmark/db/services.php`, `plugin/lessonmark/amd/src/editor.js`; obsolete `plugin/lessonmark/preview.php` removed |
+| [#4 Missing File Boilerplate Headers](https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues/4) | Migrated first-party JavaScript to Moodle AMD source files with the standard GPL boilerplate, copyright and licence tags. An audit of first-party PHP and JS files found no missing header fields. Bundled third-party files retain their upstream licences and are declared in `thirdpartylibs.xml`. | `plugin/lessonmark/amd/src/*.js`, `plugin/lessonmark/thirdpartylibs.xml` |
+| [#5 Update JS implementation to ES6 JavaScript Modules](https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues/5) | Replaced the three root-level legacy scripts with Moodle AMD ES6 modules and load them through `js_call_amd()`. Build files were generated with Moodle 5.2 Grunt. | `plugin/lessonmark/amd/src/presentation.js`, `course-presentation.js`, `browser-print.js`, plus `course.php` and `view.php` |
 
 The browser migration also exposed a timing race when a presentation iframe was
 replaced. The child now announces that its AMD listener is ready before the
@@ -49,6 +49,14 @@ Behat scenarios (85 steps), including accessibility checks.
 
 The updated release package is attached to the resubmission. Thank you for
 reviewing it again.
+
+## Marketplace resubmission
+
+On 15 September 2026, `mod_lessonmark-0.3.0-alpha2.zip` was registered as
+version `0.3.0-alpha2` (`2026091501`) for Moodle 5.2 in MMR-188. The Marketplace
+description was updated to the canonical repository URLs and to describe
+continuous course presentation accurately. The Marketplace automated test was
+still in progress at the time of this record.
 
 ## Checks applied to the dual-learning plugins
 
