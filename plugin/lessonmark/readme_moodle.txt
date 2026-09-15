@@ -1,4 +1,4 @@
-LessonMark 0.3.0-alpha1
+LessonMark 0.3.0-alpha2
 ======================
 
 LessonMark is a Moodle activity module for authoring, previewing, and publishing
@@ -26,6 +26,6 @@ Back up the database and moodledata before upgrading. Uninstalling removes the
 activities and their Moodle-managed files.
 
 Documentation, issue tracker, and security policy:
-https://github.com/ozekihiroshi/LessonMark
-https://github.com/ozekihiroshi/LessonMark/issues
-https://github.com/ozekihiroshi/LessonMark/security/policy
+https://github.com/ozekihiroshi/moodle-mod_lessonmark
+https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues
+https://github.com/ozekihiroshi/moodle-mod_lessonmark/security/policy

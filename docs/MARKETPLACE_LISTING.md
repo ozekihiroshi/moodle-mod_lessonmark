@@ -51,11 +51,11 @@ Moodle.
 
 ## Useful links
 
-- Source: https://github.com/ozekihiroshi/LessonMark
-- Issues: https://github.com/ozekihiroshi/LessonMark/issues
-- Security: https://github.com/ozekihiroshi/LessonMark/security/policy
-- Installation: https://github.com/ozekihiroshi/LessonMark/blob/main/docs/INSTALLATION.md
-- Authoring guide: https://github.com/ozekihiroshi/LessonMark/blob/main/docs/AUTHORING_GUIDE.md
+- Source: https://github.com/ozekihiroshi/moodle-mod_lessonmark
+- Issues: https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues
+- Security: https://github.com/ozekihiroshi/moodle-mod_lessonmark/security/policy
+- Installation: https://github.com/ozekihiroshi/moodle-mod_lessonmark/blob/main/docs/INSTALLATION.md
+- Authoring guide: https://github.com/ozekihiroshi/moodle-mod_lessonmark/blob/main/docs/AUTHORING_GUIDE.md
 
 ## Suggested screenshots
 

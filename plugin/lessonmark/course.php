@@ -46,7 +46,7 @@ $PAGE->set_title(format_string($course->fullname));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_pagelayout('embedded');
 $PAGE->activityheader->disable();
-$PAGE->requires->js(new moodle_url('/mod/lessonmark/course-presentation.js'));
+$PAGE->requires->js_call_amd('mod_lessonmark/course-presentation', 'init');
 
 echo $OUTPUT->header();
 echo html_writer::start_div('mod_lessonmark-course-presentation', [

@@ -41,10 +41,14 @@ final class presentation_source_test extends \basic_testcase {
      */
     public function test_literal_markers(): void {
         $fence = str_repeat(chr(96), 3);
-        foreach (
-            ["~~~\n<!-- slide -->\n~~~", $fence . chr(96) . "\n" . $fence . "\n<!-- slide -->\n" . $fence . chr(96),
-                '    <!-- slide -->', '> <!-- slide -->', 'Text <!-- slide -->'] as $source
-        ) {
+        $sources = [
+            "~~~\n<!-- slide -->\n~~~",
+            $fence . chr(96) . "\n" . $fence . "\n<!-- slide -->\n" . $fence . chr(96),
+            '    <!-- slide -->',
+            '> <!-- slide -->',
+            'Text <!-- slide -->',
+        ];
+        foreach ($sources as $source) {
             $this->assertSame([$source], presentation_source::split($source));
         }
     }

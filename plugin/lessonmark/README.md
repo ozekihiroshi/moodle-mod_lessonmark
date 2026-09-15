@@ -10,7 +10,8 @@ does not itself contact an AI service or send lesson content outside Moodle.
 
 ## Features
 
-Development note: 0.3.0-alpha1 adds **Course presentation**. Start from a visible
+Development note: 0.3.0-alpha2 adds **Course presentation** and incorporates the
+Marketplace review fixes. Start from a visible
 LessonMark activity; use Left/Right to navigate slides and lessons in course order.
 Use `<!-- slide -->` on its own line to split a lesson. Hidden, stealth and inaccessible
 activities and other activity types are not included. Only the current lesson is loaded.
@@ -58,9 +59,9 @@ or exported source first.
 
 See the source repository for the authoring guide, installation details,
 security policy, release checklist, and reproducible build scripts:
-<https://github.com/ozekihiroshi/LessonMark>.
+<https://github.com/ozekihiroshi/moodle-mod_lessonmark>.
 
-Use <https://github.com/ozekihiroshi/LessonMark/issues> for reproducible
+Use <https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues> for reproducible
 non-security defects and feature discussions. Security reports must use the
 private process in the repository's `SECURITY.md`.
 

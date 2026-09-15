@@ -21,7 +21,11 @@ const context = {
             replaceWith(...nodes) { restored = nodes; }}),
     },
 };
-vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../plugin/lessonmark/browser-print.js'), 'utf8'), context);
+const source = fs.readFileSync(
+    path.join(__dirname, '../plugin/lessonmark/amd/src/browser-print.js'),
+    'utf8'
+).replace('export const init =', 'const init =') + '\ninit();';
+vm.runInNewContext(source, context);
 assert.deepEqual(answers.map(answer => answer.open), [false, true]);
 listeners.beforeprint();
 assert.deepEqual(answers.map(answer => answer.open), [true, true]);

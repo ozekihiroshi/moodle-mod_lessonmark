@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,10 +12,10 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for LessonMark.
+ * External service declarations for LessonMark.
  *
  * @package   mod_lessonmark
  * @copyright 2026 Hiroshi Ozeki
@@ -24,9 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'mod_lessonmark';
-$plugin->version = 2026091501;
-$plugin->requires = 2026042000;
-$plugin->supported = [502, 502];
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->release = '0.3.0-alpha2';
+$functions = [
+    'mod_lessonmark_render_preview' => [
+        'classname' => 'mod_lessonmark\\external\\render_preview',
+        'description' => 'Render an unsaved LessonMark draft for an authorised editor.',
+        'type' => 'read',
+        'ajax' => true,
+        'capabilities' => 'mod/lessonmark:edit, mod/lessonmark:addinstance',
+    ],
+];

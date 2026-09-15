@@ -1,12 +1,30 @@
 // This file is part of Moodle - https://moodle.org/
-// Licensed under the GNU GPL v3 or later: https://www.gnu.org/copyleft/gpl.html
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * Persistent presentation shell; loads only the selected lesson.
- * @copyright 2026 Hiroshi Ozeki
+ *
+ * @module     mod_lessonmark/course-presentation
+ * @copyright  2026 Hiroshi Ozeki
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-(function() {
-    'use strict';
-    const init = () => {
+
+/**
+ * Initialise the continuous course presentation shell.
+ */
+export const init = () => {
         const root = document.querySelector('.mod_lessonmark-course-presentation');
         if (!root) {
             return;
@@ -64,8 +82,14 @@
         window.addEventListener('message', event => {
             const message = event.data;
             if (event.origin !== origin || event.source !== frame.contentWindow ||
-                    !message || message.type !== 'lessonmark-slide' || message.token !== token ||
-                    String(message.cmid) !== outline.value) {
+                    !message || message.type !== 'lessonmark-slide' || String(message.cmid) !== outline.value) {
+                return;
+            }
+            if (message.action === 'ready') {
+                send(last ? 'connect-last' : 'connect');
+                return;
+            }
+            if (message.token !== token) {
                 return;
             }
             if (message.action === 'boundary' && (message.direction === -1 || message.direction === 1)) {
@@ -123,10 +147,4 @@
         loading();
         // Also covers a cached child that completed before this listener was installed.
         send('connect');
-    };
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, {once: true});
-    } else {
-        init();
-    }
-}());
+};

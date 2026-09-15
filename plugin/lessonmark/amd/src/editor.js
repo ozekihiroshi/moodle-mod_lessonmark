@@ -22,6 +22,7 @@
  */
 
 import Notification from 'core/notification';
+import Ajax from 'core/ajax';
 import {getStrings} from 'core/str';
 import {watchForm} from 'core_form/changechecker';
 import {highlight} from './syntax-highlighter';
@@ -194,26 +195,19 @@ export const init = async config => {
         setStatus(strings.loading);
         refreshButton.disabled = true;
         preview.setAttribute('aria-busy', 'true');
-        const body = new URLSearchParams({
-            sesskey: config.sesskey,
+        const args = {
             markdownsource: source.value,
-            cmid: String(config.cmid),
-            courseid: String(config.courseid),
-            draftitemid: files ? files.value : '0',
-        });
+            cmid: config.cmid,
+            courseid: config.courseid,
+            draftitemid: files ? Number(files.value) : 0,
+        };
 
         try {
-            const response = await fetch(config.endpoint, {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-                body,
-            });
-            const result = await response.json();
+            const result = await Ajax.call([{methodname: 'mod_lessonmark_render_preview', args}])[0];
             if (currentRequest !== requestNumber) {
                 return;
             }
-            if (!response.ok || typeof result.html !== 'string') {
+            if (typeof result.html !== 'string') {
                 throw new Error('Preview request failed');
             }
             if (result.html) {

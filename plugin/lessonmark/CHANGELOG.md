@@ -1,5 +1,17 @@
 # Change log
 
+## 0.3.0-alpha2 - 2026-09-15
+
+- Replaced the dedicated Preview AJAX endpoint with a Moodle External Service
+  called through `core/ajax`, retaining context and capability validation.
+- Migrated presentation, continuous course presentation and print preparation
+  to Moodle AMD ES6 modules.
+- Added a child-ready handshake to continuous course presentation so iframe
+  navigation does not depend on AMD initialisation timing.
+- Added the complete GPL v3 licence to the plugin root and completed Moodle
+  boilerplate headers for first-party JavaScript sources.
+- Prepared the repository and release metadata for the Marketplace review fixes.
+
 ## 0.3.0-alpha1 - 2026-09-12
 
 - Added continuous course presentation through accessible, visible, course-listed

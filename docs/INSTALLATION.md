@@ -61,6 +61,6 @@ use Moodle course backup when a restorable activity including images is needed.
 ## Support and security
 
 Report reproducible non-security defects at
-<https://github.com/ozekihiroshi/LessonMark/issues>. Security vulnerabilities
+<https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues>. Security vulnerabilities
 must be reported privately using the process in
-<https://github.com/ozekihiroshi/LessonMark/security/policy>.
+<https://github.com/ozekihiroshi/moodle-mod_lessonmark/security/policy>.

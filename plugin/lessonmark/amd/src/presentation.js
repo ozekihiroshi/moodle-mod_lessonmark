@@ -1,12 +1,30 @@
 // This file is part of Moodle - https://moodle.org/
-// Licensed under the GNU GPL v3 or later: https://www.gnu.org/copyleft/gpl.html
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * Progressive enhancement for classroom presentation.
- * @copyright 2026 Hiroshi Ozeki
+ *
+ * @module     mod_lessonmark/presentation
+ * @copyright  2026 Hiroshi Ozeki
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-(function() {
-    'use strict';
-    const init = () => {
+
+/**
+ * Initialise a LessonMark presentation.
+ */
+export const init = () => {
         const root = document.querySelector('.mod_lessonmark-presentation');
         if (!root) {
             return;
@@ -67,6 +85,11 @@
                     move(message.action === 'previous' ? -1 : 1);
                 }
             });
+            window.parent.postMessage({
+                type: 'lessonmark-slide',
+                action: 'ready',
+                cmid: root.dataset.cmid,
+            }, window.location.origin);
         }
         root.addEventListener('keydown', event => {
             if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
@@ -101,10 +124,4 @@
         // Mermaid uses its own off-screen measurement; do not rerender author source here.
         show(0);
         slides[0].focus({preventScroll: true});
-    };
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, {once: true});
-    } else {
-        init();
-    }
-}());
+};

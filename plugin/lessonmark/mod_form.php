@@ -168,7 +168,6 @@ class mod_lessonmark_mod_form extends moodleform_mod {
         $PAGE->requires->js(new moodle_url('/mod/lessonmark/vendor/mermaid/mermaid.min.js'));
         $PAGE->requires->js(new moodle_url('/mod/lessonmark/vendor/mermaid/mermaid-render.js'));
         $PAGE->requires->js_call_amd('mod_lessonmark/editor', 'init', [[
-            'endpoint' => (new moodle_url('/mod/lessonmark/preview.php'))->out(false),
             'sourceSelector' => '#id_markdownsource',
             'containerSelector' => '[data-preview-id="' . $previewid . '"]',
             'sourcePanelId' => $sourcepanelid,
@@ -177,7 +176,6 @@ class mod_lessonmark_mod_form extends moodleform_mod {
             'filesSelector' => '#id_' . \mod_lessonmark\local\content_files::FORM_FIELD,
             'cmid' => $cmid,
             'courseid' => $courseid,
-            'sesskey' => sesskey(),
             'maxSourceBytes' => \mod_lessonmark\local\moodle_markdown_renderer::MAX_SOURCE_BYTES,
         ]]);
         $this->standard_coursemodule_elements();

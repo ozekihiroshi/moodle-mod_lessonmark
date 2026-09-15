@@ -50,7 +50,7 @@ if ($present) {
     $PAGE->set_url('/mod/lessonmark/view.php', ['id' => $cm->id, 'present' => 1]);
     $PAGE->set_pagelayout('embedded');
     $PAGE->activityheader->disable();
-    $PAGE->requires->js(new moodle_url('/mod/lessonmark/presentation.js'));
+    $PAGE->requires->js_call_amd('mod_lessonmark/presentation', 'init');
 }
 
 $completion = new completion_info($course);
@@ -67,7 +67,7 @@ $event->trigger();
 $renderer = new \mod_lessonmark\local\moodle_markdown_renderer();
 $document = $renderer->render_with_print_breaks((string) $lessonmark->markdownsource, $context);
 $contenthtml = $document->get_content_html();
-$PAGE->requires->js(new moodle_url('/mod/lessonmark/browser-print.js'));
+$PAGE->requires->js_call_amd('mod_lessonmark/browser-print', 'init');
 if ($present) {
     $contenthtml = '';
     foreach (\mod_lessonmark\local\presentation_source::split((string) $lessonmark->markdownsource) as $index => $source) {

@@ -4,7 +4,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const read = name => fs.readFileSync(path.join(__dirname, '../plugin/lessonmark', name), 'utf8');
+const read = name => fs.readFileSync(path.join(__dirname, '../plugin/lessonmark/amd/src', name), 'utf8')
+    .replace('export const init =', 'const init =') + '\ninit();';
 const target = extra => Object.assign({handlers: {}, addEventListener(type, fn) { this.handlers[type] = fn; }}, extra);
 
 async function main() {
@@ -40,6 +41,8 @@ async function main() {
     assert.equal(status.textContent, 'Loading');
     receive({}, {source: {}});
     assert.equal(status.textContent, 'Loading');
+    receive({action: 'ready'});
+    assert.equal(sent.at(-1).message.action, 'connect');
     receive({});
     assert.equal(status.textContent, '1 / 3 · 1 / 2');
     assert.equal(next.disabled, false);
@@ -101,10 +104,13 @@ async function main() {
         }});
     vm.runInNewContext(read('presentation.js'), {window: childWindow,
         document: {readyState: 'complete', querySelector: () => childRoot}});
+    assert.equal(childSent.at(-1).action, 'ready');
+    assert.equal(childSent.at(-1).cmid, '11');
     const command = (action, origin = window.location.origin) => childWindow.handlers.message({origin, source: parent,
         data: {type: 'lessonmark-course', token: 7, action}});
+    const readyMessages = childSent.length;
     command('connect-last', 'https://evil.test');
-    assert.equal(childSent.length, 0);
+    assert.equal(childSent.length, readyMessages);
     command('connect-last');
     assert.equal(childStatus.textContent, '2 / 2');
     assert.equal(bar.hidden, true);

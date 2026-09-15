@@ -1,6 +1,6 @@
 # LessonMark
 
-[![Moodle plugin CI](https://github.com/ozekihiroshi/LessonMark/actions/workflows/moodle-plugin-ci.yml/badge.svg)](https://github.com/ozekihiroshi/LessonMark/actions/workflows/moodle-plugin-ci.yml)
+[![Moodle plugin CI](https://github.com/ozekihiroshi/moodle-mod_lessonmark/actions/workflows/moodle-plugin-ci.yml/badge.svg)](https://github.com/ozekihiroshi/moodle-mod_lessonmark/actions/workflows/moodle-plugin-ci.yml)
 [![License: GPL v3 or later](https://img.shields.io/badge/License-GPLv3%2B-blue.svg)](LICENSE)
 
 LessonMark is a Moodle course resource for authoring, previewing, and
@@ -13,7 +13,7 @@ outside one Moodle database. Teachers can still create and maintain the whole
 resource in Moodle without requiring Git, an external editor, Composer, or
 Node.js on the server.
 
-The plugin component is `mod_lessonmark`. Version 0.3.0-alpha1 targets Moodle
+The plugin component is `mod_lessonmark`. Version 0.3.0-alpha2 targets Moodle
 5.2 on PHP 8.3 and 8.4. See GitHub Releases for published, verified installation
 ZIPs. The current 0.3 build is a prerelease for evaluation.
 
@@ -135,7 +135,7 @@ directory and complete Moodle's normal upgrade. The Moodle server does not
 need the repository, Composer, or Node.js.
 
 See [Installation and upgrade](docs/INSTALLATION.md) for the full lifecycle
-procedure and [GitHub Releases](https://github.com/ozekihiroshi/LessonMark/releases)
+procedure and [GitHub Releases](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases)
 for published packages.
 
 ## Repository layout
@@ -204,9 +204,9 @@ release ZIP.
 
 ## Support and license
 
-The repository is published at <https://github.com/ozekihiroshi/LessonMark>.
+The repository is published at <https://github.com/ozekihiroshi/moodle-mod_lessonmark>.
 Report reproducible defects through
-[GitHub Issues](https://github.com/ozekihiroshi/LessonMark/issues). Report
+[GitHub Issues](https://github.com/ozekihiroshi/moodle-mod_lessonmark/issues). Report
 security vulnerabilities privately as described in
 [SECURITY.md](SECURITY.md).
 

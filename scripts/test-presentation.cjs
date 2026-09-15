@@ -25,7 +25,11 @@ async function main() {
         async requestFullscreen() { throw new Error('Not allowed'); },
     };
     const document = {readyState: 'complete', querySelector() { return root; }};
-    vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../plugin/lessonmark/presentation.js'), 'utf8'), {document});
+    const source = fs.readFileSync(
+        path.join(__dirname, '../plugin/lessonmark/amd/src/presentation.js'),
+        'utf8'
+    ).replace('export const init =', 'const init =') + '\ninit();';
+    vm.runInNewContext(source, {document});
     assert.equal(status.textContent, '1 / 3');
     assert.equal(previous.disabled, true);
     assert.deepEqual(slides.map(s => s.hidden), [false, true, true]);

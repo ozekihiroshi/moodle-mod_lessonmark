@@ -58,9 +58,15 @@ if (preg_match('/\$plugin->maturity\s*=\s*' . $expectedmaturity . ';/', $version
 
 $requiredfiles = [
     'course.php',
-    'course-presentation.js',
-    'presentation.js',
-    'browser-print.js',
+    'LICENSE',
+    'db/services.php',
+    'classes/external/render_preview.php',
+    'amd/src/course-presentation.js',
+    'amd/src/presentation.js',
+    'amd/src/browser-print.js',
+    'amd/build/course-presentation.min.js',
+    'amd/build/presentation.min.js',
+    'amd/build/browser-print.min.js',
     'classes/local/course_presentation.php',
     'README.md',
     'export_pdf.php',

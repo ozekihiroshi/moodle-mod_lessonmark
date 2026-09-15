@@ -21,7 +21,7 @@ with a save-free preview that uses the same renderer as the student view.
 
 ## Rendering and authorisation
 
-`preview.php` and `view.php` both instantiate
+The Preview External Service and `view.php` both instantiate
 `moodle_markdown_renderer`; there is no client-side Markdown renderer and no
 second rendering pipeline. Existing activities require
 `mod/lessonmark:edit` in module context. A new, not-yet-saved activity uses
