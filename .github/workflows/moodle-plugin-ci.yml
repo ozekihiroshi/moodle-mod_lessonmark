@@ -89,7 +89,19 @@ jobs:
 
       - name: JavaScript and CSS lint
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci grunt --max-lint-warnings 0
+        shell: bash
+        run: |
+          set -o pipefail
+          gruntlog="$(mktemp)"
+          if moodle-plugin-ci grunt --max-lint-warnings 0 2>&1 | tee "$gruntlog"; then
+            exit 0
+          fi
+          details="$(grep -E 'File is stale|newly generated|no longer generated|Warning:|error' "$gruntlog" | tail -n 20 | tr '\n' ';')"
+          details="${details//'%'/'%25'}"
+          details="${details//$'\r'/'%0D'}"
+          details="${details//$'\n'/'%0A'}"
+          echo "::error title=Grunt failure details::$details"
+          exit 1
 
       - name: PHPUnit
         if: ${{ !cancelled() }}
