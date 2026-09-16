@@ -1,5 +1,14 @@
 # Change log
 
+## 0.3.0-alpha3 - 2026-09-16
+
+- Clarified the individual and continuous presentation launch labels in English
+  and Japanese, and made the fullscreen button indicate whether it enters or
+  exits fullscreen.
+- Updated browser acceptance tests for the new labels.
+- Rebuilt AMD assets using Moodle's locked dependencies and documented the
+  reproducible build procedure. Standard Moodle Plugin CI checks are retained.
+
 ## 0.3.0-alpha2 - 2026-09-15
 
 - Replaced the dedicated Preview AJAX endpoint with a Moodle External Service
@@ -10,8 +19,6 @@
   navigation does not depend on AMD initialisation timing.
 - Added the complete GPL v3 licence to the plugin root and completed Moodle
   boilerplate headers for first-party JavaScript sources.
-- Clarified the individual and continuous presentation launch labels, and made
-  the fullscreen button announce whether it enters or exits fullscreen.
 - Prepared the repository and release metadata for the Marketplace review fixes.
 
 ## 0.3.0-alpha1 - 2026-09-12
