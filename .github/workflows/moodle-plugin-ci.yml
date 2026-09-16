@@ -91,26 +91,17 @@ jobs:
         if: ${{ !cancelled() }}
         shell: bash
         run: |
-          set -o pipefail
-          gruntlog="$(mktemp)"
-          if moodle-plugin-ci grunt --max-lint-warnings 0 2>&1 | tee "$gruntlog"; then
-            exit 0
-          fi
-          details="$(grep -E 'File is stale|newly generated|no longer generated|Warning:|error' "$gruntlog" | tail -n 20 | tr '\n' ';')"
-          details="${details//'%'/'%25'}"
-          details="${details//$'\r'/'%0D'}"
-          details="${details//$'\n'/'%0A'}"
-          tooling="$(
-            printf 'Moodle=%s ' "$(git -C moodle rev-parse HEAD)"
-            printf 'Node=%s npm=%s ' "$(node --version)" "$(npm --version)"
-            npm --prefix moodle ls --depth=0 @babel/core @babel/preset-env grunt-rollup rollup-plugin-terser 2>/dev/null || true
-          )"
-          tooling="$(printf '%s' "$tooling" | tr '\n' ';')"
-          tooling="${tooling//'%'/'%25'}"
-          tooling="${tooling//$'\r'/'%0D'}"
-          tooling="${tooling//$'\n'/'%0A'}"
-          echo "::error title=Grunt failure details::$details $tooling"
-          exit 1
+          moodle-plugin-ci grunt \
+            --tasks gherkinlint \
+            --tasks stylelint \
+            --max-lint-warnings 0
+          (
+            cd moodle/public/mod/lessonmark/amd
+            npx grunt amd --max-lint-warnings=0
+          )
+          diff -ru \
+            lessonmark-repository/plugin/lessonmark/amd/build \
+            moodle/public/mod/lessonmark/amd/build
 
       - name: PHPUnit
         if: ${{ !cancelled() }}
