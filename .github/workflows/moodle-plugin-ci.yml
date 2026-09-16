@@ -101,14 +101,17 @@ jobs:
           cd moodle/public/mod/lessonmark
           npx grunt stylelint --max-lint-warnings=0
 
-      - name: JavaScript lint and build validation
+      - name: JavaScript lint and build
         if: ${{ !cancelled() }}
         shell: bash
         run: |
-          (
-            cd moodle/public/mod/lessonmark/amd
-            npx grunt amd --max-lint-warnings=0
-          )
+          cd moodle/public/mod/lessonmark/amd
+          npx grunt amd --max-lint-warnings=0
+
+      - name: JavaScript build validation
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
           diff -ru \
             lessonmark-repository/plugin/lessonmark/amd/build \
             moodle/public/mod/lessonmark/amd/build
