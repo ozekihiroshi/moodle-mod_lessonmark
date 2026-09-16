@@ -100,7 +100,16 @@ jobs:
           details="${details//'%'/'%25'}"
           details="${details//$'\r'/'%0D'}"
           details="${details//$'\n'/'%0A'}"
-          echo "::error title=Grunt failure details::$details"
+          tooling="$(
+            printf 'Moodle=%s ' "$(git -C moodle rev-parse HEAD)"
+            printf 'Node=%s npm=%s ' "$(node --version)" "$(npm --version)"
+            npm --prefix moodle ls --depth=0 @babel/core @babel/preset-env grunt-rollup rollup-plugin-terser 2>/dev/null || true
+          )"
+          tooling="$(printf '%s' "$tooling" | tr '\n' ';')"
+          tooling="${tooling//'%'/'%25'}"
+          tooling="${tooling//$'\r'/'%0D'}"
+          tooling="${tooling//$'\n'/'%0A'}"
+          echo "::error title=Grunt failure details::$details $tooling"
           exit 1
 
       - name: PHPUnit
