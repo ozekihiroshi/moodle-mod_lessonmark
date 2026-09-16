@@ -87,44 +87,9 @@ jobs:
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci savepoints
 
-      - name: Gherkin lint
+      - name: JavaScript and CSS lint
         if: ${{ !cancelled() }}
-        shell: bash
-        run: |
-          cd moodle
-          npx grunt gherkinlint --max-lint-warnings=0
-
-      - name: CSS lint
-        if: ${{ !cancelled() }}
-        shell: bash
-        run: |
-          cd moodle/public/mod/lessonmark
-          npx grunt stylelint --max-lint-warnings=0
-
-      - name: JavaScript lint and build
-        if: ${{ !cancelled() }}
-        shell: bash
-        run: |
-          cd moodle/public/mod/lessonmark/amd
-          npx grunt amd --max-lint-warnings=0
-
-      - name: JavaScript build validation
-        if: ${{ !cancelled() }}
-        shell: bash
-        run: |
-          if diff -ru \
-            lessonmark-repository/plugin/lessonmark/amd/build \
-            moodle/public/mod/lessonmark/amd/build > amd-build.diff; then
-            exit 0
-          fi
-          head -c 16000 amd-build.diff > amd-build-excerpt.txt
-          python3 - <<'PY'
-          from pathlib import Path
-          details = Path('amd-build-excerpt.txt').read_text()
-          details = details.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
-          print('::error title=AMD build difference::' + details)
-          PY
-          exit 1
+        run: moodle-plugin-ci grunt --max-lint-warnings 0
 
       - name: PHPUnit
         if: ${{ !cancelled() }}
