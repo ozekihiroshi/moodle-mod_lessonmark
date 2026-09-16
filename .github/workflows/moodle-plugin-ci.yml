@@ -91,10 +91,14 @@ jobs:
         if: ${{ !cancelled() }}
         shell: bash
         run: |
-          moodle-plugin-ci grunt \
-            --tasks gherkinlint \
-            --tasks stylelint \
-            --max-lint-warnings 0
+          (
+            cd moodle
+            npx grunt gherkinlint --max-lint-warnings=0
+          )
+          (
+            cd moodle/public/mod/lessonmark
+            npx grunt stylelint --max-lint-warnings=0
+          )
           (
             cd moodle/public/mod/lessonmark/amd
             npx grunt amd --max-lint-warnings=0
