@@ -10,6 +10,8 @@
   navigation does not depend on AMD initialisation timing.
 - Added the complete GPL v3 licence to the plugin root and completed Moodle
   boilerplate headers for first-party JavaScript sources.
+- Clarified the individual and continuous presentation launch labels, and made
+  the fullscreen button announce whether it enters or exits fullscreen.
 - Prepared the repository and release metadata for the Marketplace review fixes.
 
 ## 0.3.0-alpha1 - 2026-09-12

@@ -116,9 +116,18 @@ if ($present) {
     echo html_writer::start_div('mod_lessonmark-presentation', ['data-cmid' => (string) $cm->id]);
     echo html_writer::start_div('mod_lessonmark-presentation-controls');
     foreach (['previous', 'next', 'fullscreen'] as $action) {
-        echo html_writer::tag('button', get_string('presentation' . $action, 'mod_lessonmark'), [
+        $attributes = [
             'type' => 'button', 'class' => 'btn btn-secondary', 'data-presentation-action' => $action,
-        ]);
+        ];
+        if ($action === 'fullscreen') {
+            $attributes['data-enter-label'] = get_string('presentationfullscreen', 'mod_lessonmark');
+            $attributes['data-exit-label'] = get_string('presentationexitfullscreen', 'mod_lessonmark');
+        }
+        echo html_writer::tag(
+            'button',
+            get_string('presentation' . $action, 'mod_lessonmark'),
+            $attributes
+        );
     }
     echo html_writer::tag('span', '', ['data-presentation-status' => '', 'role' => 'status', 'aria-live' => 'polite']);
     echo html_writer::link(

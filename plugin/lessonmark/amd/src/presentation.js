@@ -107,6 +107,12 @@ export const init = () => {
             }
         });
         fullscreen.hidden = !root.requestFullscreen;
+        const updateFullscreenLabel = () => {
+            fullscreen.textContent = document.fullscreenElement === root ?
+                fullscreen.dataset.exitLabel : fullscreen.dataset.enterLabel;
+        };
+        document.addEventListener('fullscreenchange', updateFullscreenLabel);
+        updateFullscreenLabel();
         fullscreen.addEventListener('click', async() => {
             try {
                 if (document.fullscreenElement) {

@@ -77,9 +77,18 @@ foreach ($modules as $index => $module) {
 }
 echo html_writer::end_tag('select');
 foreach (['previous', 'next', 'fullscreen'] as $action) {
-    echo html_writer::tag('button', get_string('presentation' . $action, 'mod_lessonmark'), [
+    $attributes = [
         'type' => 'button', 'class' => 'btn btn-secondary', 'data-course-action' => $action,
-    ]);
+    ];
+    if ($action === 'fullscreen') {
+        $attributes['data-enter-label'] = get_string('presentationfullscreen', 'mod_lessonmark');
+        $attributes['data-exit-label'] = get_string('presentationexitfullscreen', 'mod_lessonmark');
+    }
+    echo html_writer::tag(
+        'button',
+        get_string('presentation' . $action, 'mod_lessonmark'),
+        $attributes
+    );
 }
 echo html_writer::tag('span', '', ['data-course-status' => '', 'role' => 'status', 'aria-live' => 'polite']);
 echo html_writer::end_div();

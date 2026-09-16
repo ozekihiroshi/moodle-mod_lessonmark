@@ -10,6 +10,7 @@ async function main() {
     const previous = button();
     const next = button();
     const fullscreen = button();
+    fullscreen.dataset = {enterLabel: 'Fullscreen', exitLabel: 'Exit fullscreen'};
     const status = {};
     let focused = null;
     const slides = Array.from({length: 3}, (_, index) => ({hidden: false, focus() { focused = index; }}));
@@ -24,7 +25,8 @@ async function main() {
         addEventListener(type, fn) { this.handlers[type] = fn; },
         async requestFullscreen() { throw new Error('Not allowed'); },
     };
-    const document = {readyState: 'complete', querySelector() { return root; }};
+    const document = {readyState: 'complete', handlers: {}, querySelector() { return root; },
+        addEventListener(type, fn) { this.handlers[type] = fn; }};
     const source = fs.readFileSync(
         path.join(__dirname, '../plugin/lessonmark/amd/src/presentation.js'),
         'utf8'
@@ -33,6 +35,7 @@ async function main() {
     assert.equal(status.textContent, '1 / 3');
     assert.equal(previous.disabled, true);
     assert.deepEqual(slides.map(s => s.hidden), [false, true, true]);
+    assert.equal(fullscreen.textContent, 'Fullscreen');
     next.handlers.click();
     assert.equal(status.textContent, '2 / 3');
     const key = (name, editing = false) => {
@@ -53,12 +56,16 @@ async function main() {
     root.requestFullscreen = async() => { document.fullscreenElement = root; };
     focused = 'button';
     await fullscreen.handlers.click();
+    document.handlers.fullscreenchange();
+    assert.equal(fullscreen.textContent, 'Exit fullscreen');
     assert.equal(focused, 0);
     key('ArrowRight');
     assert.equal(status.textContent, '2 / 3');
     document.exitFullscreen = async() => { document.fullscreenElement = null; };
     focused = 'button';
     await fullscreen.handlers.click();
+    document.handlers.fullscreenchange();
+    assert.equal(fullscreen.textContent, 'Fullscreen');
     assert.equal(focused, 1);
     root.requestFullscreen = async() => { throw Error('Denied'); };
     key('Home');

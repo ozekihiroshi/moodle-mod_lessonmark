@@ -11,7 +11,7 @@ const target = extra => Object.assign({handlers: {}, addEventListener(type, fn) 
 async function main() {
     const previous = target({});
     const next = target({});
-    const fullscreen = target({});
+    const fullscreen = target({dataset: {enterLabel: 'Fullscreen', exitLabel: 'Exit fullscreen'}});
     const status = {};
     const sent = [];
     const frameWindow = {postMessage(message, origin) { sent.push({message, origin}); }};
@@ -27,7 +27,8 @@ async function main() {
     const root = target({dataset: {loading: 'Loading', unavailable: 'Unavailable',
         position: '{lesson} / {lessons} · {slide} / {slides}'},
         querySelector: selector => selectors[selector], async requestFullscreen() { throw Error('Denied'); }});
-    const document = {readyState: 'complete', querySelector: () => root};
+    const document = {readyState: 'complete', handlers: {}, querySelector: () => root,
+        addEventListener(type, fn) { this.handlers[type] = fn; }};
     const window = target({location: {origin: 'https://example.test'}});
     let timeout;
     vm.runInNewContext(read('course-presentation.js'), {document, window,
@@ -72,10 +73,14 @@ async function main() {
     assert.equal(next.disabled, true);
     root.requestFullscreen = async() => { document.fullscreenElement = root; };
     await fullscreen.handlers.click();
+    document.handlers.fullscreenchange();
+    assert.equal(fullscreen.textContent, 'Exit fullscreen');
     assert.equal(sent.at(-1).message.action, 'focus');
     assert.equal(sent.at(-1).message.token, 3);
     document.exitFullscreen = async() => { document.fullscreenElement = null; };
     await fullscreen.handlers.click();
+    document.handlers.fullscreenchange();
+    assert.equal(fullscreen.textContent, 'Fullscreen');
     assert.equal(sent.at(-1).message.action, 'focus');
     root.requestFullscreen = async() => { throw Error('Denied'); };
     await fullscreen.handlers.click();
@@ -91,7 +96,8 @@ async function main() {
     const childSent = [];
     const parent = {postMessage(data) { childSent.push(data); }};
     const childWindow = target({parent, location: {origin: window.location.origin}});
-    const childControls = {previous: target({}), next: target({}), fullscreen: target({})};
+    const childControls = {previous: target({}), next: target({}),
+        fullscreen: target({dataset: {enterLabel: 'Fullscreen', exitLabel: 'Exit fullscreen'}})};
     const childStatus = {};
     const bar = {};
     let focused = null;
@@ -102,8 +108,9 @@ async function main() {
             if (selector === '.mod_lessonmark-presentation-controls') { return bar; }
             return childControls[selector.match(/"(.*?)"/)[1]];
         }});
-    vm.runInNewContext(read('presentation.js'), {window: childWindow,
-        document: {readyState: 'complete', querySelector: () => childRoot}});
+    const childDocument = {readyState: 'complete', querySelector: () => childRoot,
+        addEventListener() {}};
+    vm.runInNewContext(read('presentation.js'), {window: childWindow, document: childDocument});
     assert.equal(childSent.at(-1).action, 'ready');
     assert.equal(childSent.at(-1).cmid, '11');
     const command = (action, origin = window.location.origin) => childWindow.handlers.message({origin, source: parent,
