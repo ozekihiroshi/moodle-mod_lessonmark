@@ -87,18 +87,24 @@ jobs:
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci savepoints
 
-      - name: JavaScript and CSS lint
+      - name: Gherkin lint
         if: ${{ !cancelled() }}
         shell: bash
         run: |
-          (
-            cd moodle
-            npx grunt gherkinlint --max-lint-warnings=0
-          )
-          (
-            cd moodle/public/mod/lessonmark
-            npx grunt stylelint --max-lint-warnings=0
-          )
+          cd moodle
+          npx grunt gherkinlint --max-lint-warnings=0
+
+      - name: CSS lint
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          cd moodle/public/mod/lessonmark
+          npx grunt stylelint --max-lint-warnings=0
+
+      - name: JavaScript lint and build validation
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
           (
             cd moodle/public/mod/lessonmark/amd
             npx grunt amd --max-lint-warnings=0
