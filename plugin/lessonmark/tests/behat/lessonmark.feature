@@ -104,7 +104,7 @@ Feature: Author and publish a LessonMark teaching resource
       Inline formula: `math:\frac{a}{b}`
       """
     And I press "Save and display"
-    And I follow "Presentation"
+    And I follow "Present this lesson"
     Then I should see "1 / 2"
     And I should see "First slide"
     And I should not see "Second slide"
@@ -139,7 +139,7 @@ Feature: Author and publish a LessonMark teaching resource
       ```
       """
     And I press "Save and display"
-    And I follow "Course presentation"
+    And I follow "Present course lessons"
     And I wait until "Lesson 1 / 2 · Slide 1 / 2" "text" exists
     Then I should see "Lesson 1 / 2 · Slide 1 / 2"
     When I press "Next"

@@ -14,6 +14,11 @@
 - Confirm the release verifier accepts the exact KaTeX, AsciiMath, and Mermaid
   files, licenses, and SHA-256 hashes.
 - Run Moodle Plugin CI on PHP 8.3 and PHP 8.4 against Moodle 5.2.
+- Generate AMD files in the same Moodle checkout used by CI, installing its
+  dependencies with `npm ci` and the committed `npm-shrinkwrap.json` intact.
+  Matching only the top-level Grunt/Babel versions is insufficient: different
+  transitive dependencies can produce different minified files and source maps.
+  Keep `moodle-plugin-ci grunt --max-lint-warnings 0` as the consistency gate.
 - Pass PHP lint, Moodle Code Checker, PHPDoc, plugin validation, savepoints,
   Grunt, and PHPUnit.
 - Pass the Chrome Behat flow for authoring, preview, publishing, malformed
