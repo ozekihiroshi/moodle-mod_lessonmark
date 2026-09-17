@@ -3,9 +3,18 @@
 [![Moodle plugin CI](https://github.com/ozekihiroshi/moodle-mod_lessonmark/actions/workflows/moodle-plugin-ci.yml/badge.svg)](https://github.com/ozekihiroshi/moodle-mod_lessonmark/actions/workflows/moodle-plugin-ci.yml)
 [![License: GPL v3 or later](https://img.shields.io/badge/License-GPLv3%2B-blue.svg)](LICENSE)
 
-LessonMark is a Moodle course resource for authoring, previewing, and
-publishing teaching material while keeping Markdown as the editable source of
-truth.
+LessonMark turns Markdown into Moodle teaching material with **Mermaid
+diagrams, LaTeX and AsciiMath formulas, code examples, self-check exercises,
+and classroom presentations**. Write and preview in Moodle, reuse existing
+Markdown, and keep the lesson source editable and portable.
+
+- **Diagrams from text:** describe a process with Mermaid and preview the diagram.
+- **A choice of math notation:** write LaTeX or the more approachable AsciiMath,
+  inline or in a displayed block; use **Copy LaTeX** to reuse rendered formulas.
+- **One source for reading and teaching:** use the saved lesson as a reading
+  page or slides, and present lessons continuously across a course in 0.3.
+- **Easy reuse:** paste Markdown source, import/export `.md` files, and retain
+  editable formula and diagram notation instead of flattening it into images.
 
 It is designed for technical and text-rich lessons that should remain easy to
 review, translate, compare in Git, generate with authoring tools, and reuse
@@ -13,13 +22,79 @@ outside one Moodle database. Teachers can still create and maintain the whole
 resource in Moodle without requiring Git, an external editor, Composer, or
 Node.js on the server.
 
-The plugin component is `mod_lessonmark`. Version 0.3.0-alpha2 targets Moodle
-5.2 on PHP 8.3 and 8.4. See GitHub Releases for published, verified installation
-ZIPs. The current 0.3 build is a prerelease for evaluation.
+The plugin component is `mod_lessonmark`, targeting Moodle 5.2 on PHP 8.3 and 8.4.
+
+| Download | Status |
+| --- | --- |
+| [**Newest prerelease: 0.3.0-alpha3**](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.3.0-alpha3) | Evaluation build with continuous course presentation and the latest presentation-control and review fixes. |
+| [Stable release: 0.2.0](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.2.0) | The release currently labelled **Latest** by GitHub. |
+
+GitHub's **Latest** label excludes prereleases. The 0.3.0-alpha3 build is newer
+than 0.2.0, but remains an alpha for evaluation. Download the installable
+`mod_lessonmark` ZIP attached to the chosen release.
 
 ![LessonMark Markdown editor and preview](docs/screenshots/lessonmark-authoring.png)
 
 ## What makes LessonMark different
+
+### Explain with diagrams and formulas directly in Markdown
+
+Mermaid turns a text description into a diagram. LaTeX supports mathematical
+notation, while AsciiMath lets authors write expressions such as `a/b`,
+`sqrt(x)`, or `sum_(i=1)^n i` without starting with TeX commands.
+
+| Formula placement | LaTeX | AsciiMath |
+| --- | --- | --- |
+| Inside a sentence | `` `math:\frac{a}{b}` `` (also `latex:`) | `` `asciimath:a/b` `` |
+| Displayed separately | A fenced `math` or `latex` block | A fenced `asciimath` block |
+
+For example, paste this Markdown source into the editor and choose Preview:
+
+````markdown
+## From question to explanation
+
+The ratio is `asciimath:a/b`.
+
+```math
+\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+```
+
+```mermaid
+flowchart LR
+    Question --> Try --> Feedback --> Review
+```
+````
+
+Formulas and diagrams render in Preview, the saved lesson, and presentation
+view. KaTeX, the AsciiMath converter, and Mermaid are bundled locally; rendering
+requires no external CDN or rendering service. Invalid notation stays readable
+as source, and the saved Markdown remains editable. See the
+[authoring guide](docs/AUTHORING_GUIDE.md#mathematics) for syntax and boundaries.
+
+### Copy, paste, and reuse the source
+
+Each rendered formula has a keyboard-operable **Copy LaTeX** button. This copies
+the formula's LaTeX text, including the converted LaTeX for an AsciiMath formula,
+for reuse in a compatible editor. To paste it back into LessonMark, place the
+copied expression inside a `math` fence or a `math:` inline code span. Copying
+does not rewrite the original AsciiMath source.
+
+For whole lessons, paste Markdown source from an editor or an AI assistant, or
+import a UTF-8 `.md` file. Use **Export saved .md** to recover the saved source
+with formula and diagram notation intact. Pasting a rendered webpage or a Word
+document is not an automatic conversion to Markdown; teaching images are
+uploaded separately through Moodle's file manager.
+
+### Teach from the same material students read
+
+**Present this lesson** displays the saved lesson as slides separated by
+`<!-- slide -->`. **Present course lessons** in 0.3 continues through accessible
+LessonMark activities in course order, with lesson selection and keyboard
+navigation. Both modes reuse the lesson content, diagrams, and formulas.
+
+The fullscreen control switches to **Exit fullscreen** while active. In normal
+reading view, the same source remains a continuous document, making it useful
+for review after class without maintaining a separate slide deck.
 
 ### Markdown remains the source
 
@@ -107,6 +182,10 @@ The download is capability checked and uses the same saved lesson that Moodle
 serves to learners. This makes the PDF useful for review, printing, archival,
 and distribution without turning it into a second editable source of truth.
 
+The server-generated PDF retains formulas and Mermaid diagrams as readable
+source. Use browser printing / Save as PDF when you need their rendered visual
+appearance in a handout.
+
 ![Published LessonMark teaching resource](docs/screenshots/lessonmark-student-view.png)
 
 ## Feature overview
@@ -114,10 +193,13 @@ and distribution without turning it into a second editable source of truth.
 - Markdown-first Moodle activity creation and editing;
 - responsive side-by-side Edit/Preview interface with mobile tabs;
 - locally rendered LaTeX and beginner-friendly AsciiMath formulas;
+- inline and displayed formulas, with Copy LaTeX for reuse;
 - locally rendered Mermaid diagrams with strict security and readable fallback;
 - shared sanitised rendering for preview and student display;
 - validated `.md` import and capability-protected Markdown export;
 - same-page RESPONSE, CHOICE, and ANSWER learning blocks;
+- individual lesson slides and continuous course presentation (0.3), with
+  keyboard navigation and fullscreen controls;
 - access-controlled PDF export with embedded Moodle-managed images;
 - automatic contents, stable heading links, callouts, code highlighting,
   responsive tables, and teaching typography;
@@ -179,10 +261,15 @@ the ZIP layout, and produces byte-identical output for the same commit.
 
 Release 0.1.0 established the Markdown authoring, rendering, File API,
 backup/restore, accessibility, security, and reproducible packaging base. The
-0.2 release candidate adds same-page ungraded self-check blocks, saved-content
+0.2.0 stable release added same-page ungraded self-check blocks, saved-content
 PDF, and locally bundled LaTeX, AsciiMath, and Mermaid rendering. Pinned Node
 dependencies and build scripts reproduce the committed browser assets without
 a CDN. These additions complement Moodle Quiz and Assignment.
+
+The newest published prerelease is **0.3.0-alpha3**. The 0.3 line adds continuous
+course presentation; alpha2 incorporated Marketplace review fixes, and alpha3
+clarifies presentation labels and fullscreen controls. See the
+[change log](plugin/lessonmark/CHANGELOG.md) for release-by-release details.
 
 GitHub Actions tests Moodle 5.2 on PHP 8.3 and 8.4, including PHP lint,
 Moodle Code Checker, PHPDoc, plugin validation, upgrade savepoints, Grunt,

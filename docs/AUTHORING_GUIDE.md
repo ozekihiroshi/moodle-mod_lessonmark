@@ -1,14 +1,14 @@
 # LessonMark authoring guide
 
-This guide defines the Markdown dialect supported by LessonMark 0.5. The
+This guide describes LessonMark 0.3.0-alpha3 and its supported Markdown dialect. The
 Markdown source remains the editable source of truth; rendered HTML is derived
 for preview and student display.
 
 ## Basic structure
 
-### Classroom presentation (0.2.0 candidate)
+### Classroom presentation
 
-Choose **Presentation** on a saved lesson to show one page at a time without
+Choose **Present this lesson** on a saved lesson to show one page at a time without
 Moodle navigation. Separate pages with `<!-- slide -->` on its own line at
 column zero. Example:
 
@@ -36,6 +36,9 @@ Use Previous/Next or left/right keys; Home/End go to the first/last page.
 Arrow keys keep their normal meaning inside inputs and controls. Long pages
 scroll rather than shrinking text; split dense material into more pages.
 Fullscreen requires browser support; **Return to lesson** remains available.
+The fullscreen button reads **Exit fullscreen** while fullscreen is active.
+In 0.3, **Present course lessons** continues through accessible LessonMark
+activities in course order, with a lesson selector and shared fullscreen shell.
 For now, navigate between slides with the controls, not cross-slide anchors.
 
 Presentation is HTML rendered from saved source, not a PDF viewer. Saved PDF
@@ -82,7 +85,7 @@ accepted per activity, subfolders are supported, and site upload limits apply.
 A relative reference such as `![Chart](images/chart.png)` does not upload or
 search for a local file. Preview reports it as unresolved. Upload the image and
 change the source to `@@PLUGINFILE@@/images/chart.png`. Markdown-and-images ZIP
-bundle import is not part of LessonMark 0.5.
+bundle import is not supported.
 
 ## Import and export
 
@@ -193,7 +196,7 @@ The supported language identifiers are:
 An unknown identifier does not load code or a library dynamically. LessonMark
 keeps the code readable as plain text and reports a preview diagnostic.
 
-## Mathematics (0.2 alpha)
+## Mathematics
 
 Use a prefixed inline code span for a formula inside a sentence:
 
@@ -218,10 +221,15 @@ LessonMark renders formulas locally with bundled assets and provides a Copy
 LaTeX control. The saved Markdown is not replaced by the rendered formula. If
 a formula is invalid, its original code remains visible.
 
+**Copy LaTeX** copies LaTeX text, including the converted representation of an
+AsciiMath formula. Paste it into a compatible math editor, or into a `math`
+fence / `math:` inline code span in LessonMark. The button does not copy the
+surrounding Markdown delimiters or change the original AsciiMath source.
+
 The syntax is shared with Ozeki Markdown Documents. `math:` is the documented
 LaTeX prefix; `latex:` is also accepted for source compatibility.
 
-## Mermaid diagrams (0.2 alpha)
+## Mermaid diagrams
 
 Use a `mermaid` fenced block:
 
