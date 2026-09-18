@@ -26,10 +26,10 @@ The plugin component is `mod_lessonmark`, targeting Moodle 5.2 on PHP 8.3 and 8.
 
 | Download | Status |
 | --- | --- |
-| [**Newest prerelease: 0.3.0-alpha4**](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.3.0-alpha4) | Evaluation build with continuous course presentation and the latest presentation-control and review fixes. |
+| [**Newest prerelease: 0.3.0-alpha5**](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.3.0-alpha5) | Evaluation build with continuous course presentation and the latest presentation-control and review fixes. |
 | [Stable release: 0.2.0](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.2.0) | The release currently labelled **Latest** by GitHub. |
 
-GitHub's **Latest** label excludes prereleases. The 0.3.0-alpha4 build is newer
+GitHub's **Latest** label excludes prereleases. The 0.3.0-alpha5 build is newer
 than 0.2.0, but remains an alpha for evaluation. Download the installable
 `mod_lessonmark` ZIP attached to the chosen release.
 
@@ -266,7 +266,7 @@ PDF, and locally bundled LaTeX, AsciiMath, and Mermaid rendering. Pinned Node
 dependencies and build scripts reproduce the committed browser assets without
 a CDN. These additions complement Moodle Quiz and Assignment.
 
-The newest published prerelease is **0.3.0-alpha4**. The 0.3 line adds continuous
+The newest published prerelease is **0.3.0-alpha5**. The 0.3 line adds continuous
 course presentation; alpha2 incorporated Marketplace review fixes, and alpha3
 clarifies presentation labels and fullscreen controls. See the
 [change log](plugin/lessonmark/CHANGELOG.md) for release-by-release details.

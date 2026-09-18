@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## 0.3.0-alpha5 - 2026-09-19
 
 - Fix continuous presentation order across course subsections, including after backup/restore.
 - Declare every bundled Prism AMD copy and source map as third-party MIT code,
