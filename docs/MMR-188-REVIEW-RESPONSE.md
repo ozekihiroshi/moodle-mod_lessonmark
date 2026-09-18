@@ -89,6 +89,8 @@ CI regenerates the source with pinned component hashes and rejects differences.
 The earlier first-party GPL header requirement (#4) does not override the
 upstream licence of bundled third-party code.
 
-This is a source fix pending validation and delivery; Marketplace has not yet
-received a version containing it. Issues #1–#5 have existing resolution comments;
-reviewer acknowledgement is separate from implementation completion.
+Validation, merge and delivery status are tracked in
+https://github.com/ozekihiroshi/moodle-mod_lessonmark/pull/9 and Issue #8.
+This source update does not itself submit a new Marketplace version. Issues #1–#5
+have existing resolution comments; reviewer acknowledgement is separate from
+implementation completion.
