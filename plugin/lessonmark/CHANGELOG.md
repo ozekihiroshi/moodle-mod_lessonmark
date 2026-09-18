@@ -1,5 +1,11 @@
 # Change log
 
+## Unreleased
+
+- Fix continuous presentation order across course subsections, including after backup/restore.
+- Declare every bundled Prism AMD copy and source map as third-party MIT code,
+  and preserve upstream attribution in the source generator (review issue #8).
+
 ## 0.3.0-alpha4 - 2026-09-18
 
 - Use neutral sample-answer labels in answer reveal controls and PDF exports (English and Japanese).

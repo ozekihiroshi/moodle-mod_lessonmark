@@ -84,6 +84,8 @@ $requiredfiles = [
     'vendor/mermaid/mermaid.min.js',
     'vendor/mermaid/mermaid-render.js',
     'amd/build/editor.min.js',
+    'amd/src/prism-languages.js',
+    'amd/build/prism-languages.min.js.map',
     'amd/build/prism-languages.min.js',
     'amd/build/self-check.min.js',
     'vendor/prism/readme_moodle.txt',
@@ -94,6 +96,36 @@ foreach ($requiredfiles as $relativepath) {
         fwrite(STDERR, "Required release file is missing: {$relativepath}\n");
         exit(1);
     }
+}
+
+// Prism's generated copies are third-party code too, including the embedded map source.
+$declarations = simplexml_load_file($pluginroot . '/thirdpartylibs.xml');
+if ($declarations === false) {
+    fwrite(STDERR, "Unable to parse third-party declarations.\n");
+    exit(1);
+}
+$prismcopies = [
+    'vendor/prism',
+    'amd/src/prism-languages.js',
+    'amd/build/prism-languages.min.js',
+    'amd/build/prism-languages.min.js.map',
+];
+foreach ($prismcopies as $location) {
+    $matches = $declarations->xpath("/libraries/library[location='{$location}']");
+    if (count($matches) !== 1 || (string)$matches[0]->license !== 'MIT' || (string)$matches[0]->version !== '1.29.0') {
+        fwrite(STDERR, "Missing or incorrect Prism declaration: {$location}\n");
+        exit(1);
+    }
+}
+$prismsource = file_get_contents($pluginroot . '/amd/src/prism-languages.js');
+$prismbuild = file_get_contents($pluginroot . '/amd/build/prism-languages.min.js');
+$prismmap = json_decode(file_get_contents($pluginroot . '/amd/build/prism-languages.min.js.map'), true);
+if (!str_contains($prismsource, 'Copyright (c) 2012 Lea Verou')
+        || !str_contains($prismsource, 'Permission is hereby granted, free of charge')
+        || !str_contains($prismbuild, 'Permission is hereby granted, free of charge')
+        || !in_array($prismsource, $prismmap['sourcesContent'] ?? [], true)) {
+    fwrite(STDERR, "Prism attribution is missing or its source map is stale.\n");
+    exit(1);
 }
 
 $requiredhashes = [
@@ -147,6 +179,14 @@ if (is_file($zippath)) {
     }
     $zip = new ZipArchive();
     $zip->open($zippath);
+    foreach (array_merge(array_slice($prismcopies, 1), ['thirdpartylibs.xml', 'vendor/prism/LICENSE']) as $relativepath) {
+        $contents = $zip->getFromName('lessonmark/' . $relativepath);
+        if ($contents === false || $contents !== file_get_contents($pluginroot . '/' . $relativepath)) {
+            $zip->close();
+            fwrite(STDERR, "Prism declaration or attribution differs in release ZIP: {$relativepath}\n");
+            exit(1);
+        }
+    }
     foreach ($requiredhashes as $relativepath => $expectedhash) {
         $contents = $zip->getFromName('lessonmark/' . $relativepath);
         if ($contents === false || !hash_equals($expectedhash, hash('sha256', $contents))) {

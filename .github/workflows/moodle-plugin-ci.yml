@@ -89,7 +89,7 @@ jobs:
 
       - name: JavaScript and CSS lint
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci grunt --max-lint-warnings 0
+        run: bash lessonmark-repository/scripts/check-moodle-assets.sh moodle/public/mod/lessonmark
 
       - name: PHPUnit
         if: ${{ !cancelled() }}
@@ -120,6 +120,11 @@ jobs:
         uses: actions/checkout@v6
         with:
           persist-credentials: false
+
+      - name: Verify generated Prism source
+        run: |
+          php scripts/build-prism-languages.php
+          git diff --exit-code -- plugin/lessonmark/amd/src/prism-languages.js
 
       - name: Rebuild and audit local browser assets
         run: |
