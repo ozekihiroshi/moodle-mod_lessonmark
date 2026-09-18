@@ -89,7 +89,7 @@ jobs:
 
       - name: JavaScript and CSS lint
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci grunt --max-lint-warnings 0
+        run: bash lessonmark-repository/scripts/check-moodle-assets.sh moodle/public/mod/lessonmark
 
       - name: PHPUnit
         if: ${{ !cancelled() }}

@@ -43,5 +43,11 @@ The generator checks the SHA-256 of each pinned component before copying it.
 Run php scripts/build-prism-languages.php and verify that regenerating a second
 time produces no diff. Build AMD artifacts with npm ci using the Moodle checkout's
 npm-shrinkwrap.json, then npx grunt amd --root=public/mod/lessonmark.
+For the strict CI check, run bash scripts/check-moodle-assets.sh followed by the
+absolute path to the installed Moodle public/mod/lessonmark directory. This runs
+Moodle's ignorefiles and Rollup tasks, ESLint with zero warnings on first-party
+source, CSS and Gherkin lint, and compares every rebuilt AMD file and source map.
+It handles individually declared build files that Plugin CI 4.5.11's Grunt wrapper
+otherwise deletes before Moodle reads thirdpartylibs.xml.
 Run php scripts/verify-release.php to check all Prism copies are declared and the
 source map contains the current source, including the upstream licence notice.
