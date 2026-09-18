@@ -106,6 +106,7 @@ final class course_presentation_test extends \advanced_testcase {
         $this->assertCount(0, $events->get_events());
         $events->close();
     }
+
     /**
      * Subsection placement, movement and visibility determine the playlist for both roles.
      */
@@ -177,5 +178,4 @@ final class course_presentation_test extends \advanced_testcase {
             $this->assertSame([], $ids());
         }
     }
-
 }
