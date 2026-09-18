@@ -106,4 +106,76 @@ final class course_presentation_test extends \advanced_testcase {
         $this->assertCount(0, $events->get_events());
         $events->close();
     }
+
+    /**
+     * Subsection placement, movement and visibility determine the playlist for both roles.
+     */
+    public function test_subsection_display_order_and_access(): void {
+        global $CFG, $DB;
+        require_once($CFG->dirroot . '/course/lib.php');
+        $this->resetAfterTest();
+        $this->setAdminUser();
+        set_config('enableavailability', 1);
+        $generator = $this->getDataGenerator();
+        $course = $generator->create_course(['format' => 'topics', 'numsections' => 1]);
+        $first = $generator->create_module('lessonmark', ['course' => $course->id, 'section' => 1]);
+        $last = $generator->create_module('lessonmark', ['course' => $course->id, 'section' => 1]);
+        $subb = $generator->create_module('subsection', ['course' => $course->id, 'section' => 1]);
+        $suba = $generator->create_module('subsection', ['course' => $course->id, 'section' => 1]);
+        $modinfo = get_fast_modinfo($course);
+        $b = $generator->create_module('lessonmark', [
+            'course' => $course->id, 'name' => 'Alpha second',
+            'section' => $modinfo->get_cm($subb->cmid)->get_delegated_section_info()->sectionnum,
+        ]);
+        $a = $generator->create_module('lessonmark', [
+            'course' => $course->id, 'name' => 'Zulu first',
+            'section' => $modinfo->get_cm($suba->cmid)->get_delegated_section_info()->sectionnum,
+        ]);
+        $actions = \core_courseformat\formatactions::cm($course);
+        $actions->move_before($suba->cmid, $last->cmid);
+        $actions->move_before($subb->cmid, $last->cmid);
+        $student = $generator->create_user();
+        $teacher = $generator->create_user();
+        $generator->enrol_user($student->id, $course->id, 'student');
+        $generator->enrol_user($teacher->id, $course->id, 'editingteacher');
+        $ids = static fn() => array_map(static fn($cm): int => (int)$cm->id, course_presentation::modules($course));
+        $expected = [(int)$first->cmid, (int)$a->cmid, (int)$b->cmid, (int)$last->cmid];
+        foreach ([$student, $teacher] as $user) {
+            $this->setUser($user);
+            $this->assertSame($expected, $ids());
+        }
+        $this->setAdminUser();
+        $actions->move_before($subb->cmid, $suba->cmid);
+        foreach ([$student, $teacher] as $user) {
+            $this->setUser($user);
+            $this->assertSame([(int)$first->cmid, (int)$b->cmid, (int)$a->cmid, (int)$last->cmid], $ids());
+        }
+        $this->setAdminUser();
+        $DB->set_field('course_modules', 'availability', json_encode([
+            'op' => '&', 'c' => [['type' => 'date', 'd' => '>=', 't' => time() + DAYSECS]], 'showc' => [false],
+        ]), ['id' => $subb->cmid]);
+        rebuild_course_cache($course->id, true);
+        $this->setUser($student);
+        $this->assertSame([(int)$first->cmid, (int)$a->cmid, (int)$last->cmid], $ids());
+        $this->setAdminUser();
+        $DB->set_field('course_modules', 'availability', null, ['id' => $subb->cmid]);
+        set_coursemodule_visible($subb->cmid, 0);
+        foreach ([$student, $teacher] as $user) {
+            $this->setUser($user);
+            $this->assertSame([(int)$first->cmid, (int)$a->cmid, (int)$last->cmid], $ids());
+        }
+        $this->setAdminUser();
+        $DB->set_field('course_modules', 'deletioninprogress', 1, ['id' => $a->cmid]);
+        rebuild_course_cache($course->id, true);
+        $this->setUser($student);
+        $this->assertSame([(int)$first->cmid, (int)$last->cmid], $ids());
+        $this->setAdminUser();
+        $DB->set_field('course_modules', 'deletioninprogress', 0, ['id' => $a->cmid]);
+        $section = get_fast_modinfo($course)->get_section_info(1);
+        \core_courseformat\formatactions::section($course->id)->set_visibility($section, 0);
+        foreach ([$student, $teacher] as $user) {
+            $this->setUser($user);
+            $this->assertSame([], $ids());
+        }
+    }
 }
