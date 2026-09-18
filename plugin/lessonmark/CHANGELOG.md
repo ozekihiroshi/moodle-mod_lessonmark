@@ -1,5 +1,9 @@
 # Change log
 
+## 0.3.0-alpha4 - 2026-09-18
+
+- Use neutral sample-answer labels in answer reveal controls and PDF exports (English and Japanese).
+
 ## 0.3.0-alpha3 - 2026-09-16
 
 - Clarified the individual and continuous presentation launch labels in English

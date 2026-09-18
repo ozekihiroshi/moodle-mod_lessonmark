@@ -1,6 +1,6 @@
 # LessonMark authoring guide
 
-This guide describes LessonMark 0.3.0-alpha3 and its supported Markdown dialect. The
+This guide describes LessonMark 0.3.0-alpha4 and its supported Markdown dialect. The
 Markdown source remains the editable source of truth; rendered HTML is derived
 for preview and student display.
 
