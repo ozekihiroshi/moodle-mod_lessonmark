@@ -18,7 +18,9 @@
   dependencies with `npm ci` and the committed `npm-shrinkwrap.json` intact.
   Matching only the top-level Grunt/Babel versions is insufficient: different
   transitive dependencies can produce different minified files and source maps.
-  Keep `moodle-plugin-ci grunt --max-lint-warnings 0` as the consistency gate.
+  Use `bash scripts/check-moodle-assets.sh /path/to/moodle/public/mod/lessonmark`
+  as the zero-warning lint and byte-for-byte AMD rebuild gate. This handles
+  individually declared third-party build files; see review issue #8.
 - Pass PHP lint, Moodle Code Checker, PHPDoc, plugin validation, savepoints,
   Grunt, and PHPUnit.
 - Pass the Chrome Behat flow for authoring, preview, publishing, malformed
