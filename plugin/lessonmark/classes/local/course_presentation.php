@@ -36,19 +36,19 @@ final class course_presentation {
     public static function modules(\stdClass $course): array {
         $modinfo = get_fast_modinfo($course);
         $result = [];
-        foreach ($modinfo->get_sections() as $ids) {
-            foreach ($ids as $id) {
-                $cm = $modinfo->get_cm($id);
-                $section = $modinfo->get_section_info($cm->sectionnum);
-                if (
-                    $cm->modname !== 'lessonmark' || !$cm->visible || !$cm->visibleoncoursepage ||
-                    !$section->visible || !$cm->uservisible || $cm->deletioninprogress
-                ) {
-                    continue;
-                }
-                if (has_capability('mod/lessonmark:view', \context_module::instance($cm->id))) {
-                    $result[] = $cm;
-                }
+        $modules = $modinfo->get_cms();
+        // Delegated sections belong at their displayed position, not their storage position.
+        $modinfo->sort_cm_array($modules);
+        foreach ($modules as $cm) {
+            $section = $modinfo->get_section_info($cm->sectionnum);
+            if (
+                $cm->modname !== 'lessonmark' || !$cm->visible || !$cm->visibleoncoursepage ||
+                !$section->visible || !$cm->uservisible || $cm->deletioninprogress
+            ) {
+                continue;
+            }
+            if (has_capability('mod/lessonmark:view', \context_module::instance($cm->id))) {
+                $result[] = $cm;
             }
         }
         return $result;
