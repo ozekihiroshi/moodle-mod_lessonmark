@@ -30,3 +30,18 @@ To reconstruct the generated Moodle AMD source:
 
 No network download, package manager, or build tool is required on a Moodle
 production server. The release ZIP includes the generated AMD build.
+
+Third-party declaration coverage
+-------------------------------
+thirdpartylibs.xml declares vendor/prism, amd/src/prism-languages.js,
+amd/build/prism-languages.min.js and amd/build/prism-languages.min.js.map.
+The source includes the full upstream MIT notice. The verified Moodle AMD build
+preserves this licence comment in the minified file; the source map also retains
+the attributed sourcesContent. The distribution includes this directory's MIT LICENSE.
+
+The generator checks the SHA-256 of each pinned component before copying it.
+Run php scripts/build-prism-languages.php and verify that regenerating a second
+time produces no diff. Build AMD artifacts with npm ci using the Moodle checkout's
+npm-shrinkwrap.json, then npx grunt amd --root=public/mod/lessonmark.
+Run php scripts/verify-release.php to check all Prism copies are declared and the
+source map contains the current source, including the upstream licence notice.

@@ -71,3 +71,24 @@ The same five review points were checked against the current prototypes:
 
 These checks should remain release gates when the prototypes gain AJAX or
 JavaScript behavior.
+
+
+## Follow-up review #8 (19 September 2026)
+
+The Prism declaration previously covered only `vendor/prism`; AMD copies were
+missing. The source also combined Moodle GPL boilerplate with an upstream MIT
+attribution. Issue #8 corrects this by declaring the AMD source, minified build,
+and source map individually, each with Prism 1.29.0 / MIT metadata. The source
+includes upstream provenance, reproduction instructions and the full MIT notice;
+the generator preserves this header. The verified Moodle AMD build preserves
+the licence comment in minified JavaScript; the source map embeds the attributed
+source and the package also contains `vendor/prism/LICENSE`.
+
+The release verifier checks all four Prism locations and source-map freshness.
+CI regenerates the source with pinned component hashes and rejects differences.
+The earlier first-party GPL header requirement (#4) does not override the
+upstream licence of bundled third-party code.
+
+This is a source fix pending validation and delivery; Marketplace has not yet
+received a version containing it. Issues #1–#5 have existing resolution comments;
+reviewer acknowledgement is separate from implementation completion.

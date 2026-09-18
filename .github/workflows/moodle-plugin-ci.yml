@@ -121,6 +121,11 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Verify generated Prism source
+        run: |
+          php scripts/build-prism-languages.php
+          git diff --exit-code -- plugin/lessonmark/amd/src/prism-languages.js
+
       - name: Rebuild and audit local browser assets
         run: |
           node scripts/test-presentation.cjs

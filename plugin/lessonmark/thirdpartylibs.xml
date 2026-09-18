@@ -12,6 +12,39 @@
     </copyrights>
   </library>
   <library>
+    <location>amd/src/prism-languages.js</location>
+    <name>PrismJS language components (AMD)</name>
+    <description>Generated Moodle AMD source containing unmodified upstream Bash, JSON and SQL definitions.</description>
+    <version>1.29.0</version>
+    <license>MIT</license>
+    <repository>https://github.com/PrismJS/prism</repository>
+    <copyrights>
+      <copyright>2012 Lea Verou</copyright>
+    </copyrights>
+  </library>
+  <library>
+    <location>amd/build/prism-languages.min.js</location>
+    <name>PrismJS language components (AMD)</name>
+    <description>Moodle Grunt-built AMD copy of the Prism language definitions.</description>
+    <version>1.29.0</version>
+    <license>MIT</license>
+    <repository>https://github.com/PrismJS/prism</repository>
+    <copyrights>
+      <copyright>2012 Lea Verou</copyright>
+    </copyrights>
+  </library>
+  <library>
+    <location>amd/build/prism-languages.min.js.map</location>
+    <name>PrismJS language components (AMD)</name>
+    <description>Generated source map embedding the MIT-licensed Prism AMD source.</description>
+    <version>1.29.0</version>
+    <license>MIT</license>
+    <repository>https://github.com/PrismJS/prism</repository>
+    <copyrights>
+      <copyright>2012 Lea Verou</copyright>
+    </copyrights>
+  </library>
+  <library>
     <location>vendor/katex</location>
     <name>KaTeX styles and fonts</name>
     <description>Local formula styles and font assets.</description>
