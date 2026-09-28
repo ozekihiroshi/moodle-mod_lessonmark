@@ -79,6 +79,7 @@ $string['pdfsavedcontentnote'] = 'Moodleに保存済みの内容から生成し�
 $string['pluginadministration'] = 'LessonMark管理';
 $string['pluginname'] = 'LessonMark';
 $string['presentation'] = 'この教材をスライド表示';
+$string['presentationoptions'] = 'プレゼン表示の操作';
 $string['presentationexitfullscreen'] = '全画面を終了';
 $string['presentationfullscreen'] = '全画面';
 $string['presentationnext'] = '次へ';

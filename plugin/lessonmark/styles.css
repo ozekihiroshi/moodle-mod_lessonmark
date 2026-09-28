@@ -284,8 +284,52 @@
 }
 
 .mod_lessonmark-toc__title {
-    margin: 0 0 .6rem;
+    margin: 0;
+    cursor: pointer;
     font-weight: 700;
+}
+
+.mod_lessonmark-toc details[open] > summary {
+    margin-bottom: .6rem;
+}
+
+.mod_lessonmark-reading-tools {
+    margin-bottom: 1rem;
+}
+
+.mod_lessonmark-reading-tools > summary {
+    cursor: pointer;
+    padding-block: .5rem;
+}
+
+.mod_lessonmark-reading-tools__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding-top: .5rem;
+}
+
+.mod_lessonmark-reading-tools__actions .btn {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.mod_lessonmark-toc summary,
+.mod_lessonmark-reading-tools > summary {
+    min-height: 44px;
+    align-content: center;
+}
+
+.mod_lessonmark-toc summary:focus-visible,
+.mod_lessonmark-reading-tools > summary:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media print {
+    .mod_lessonmark-reading-tools {
+        display: none;
+    }
 }
 
 .mod_lessonmark-toc__list {

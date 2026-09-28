@@ -79,6 +79,7 @@ $string['pdfsavedcontentnote'] = 'Generated from the content saved in Moodle. Br
 $string['pluginadministration'] = 'LessonMark administration';
 $string['pluginname'] = 'LessonMark';
 $string['presentation'] = 'Present this lesson';
+$string['presentationoptions'] = 'Presentation options';
 $string['presentationexitfullscreen'] = 'Exit fullscreen';
 $string['presentationfullscreen'] = 'Fullscreen';
 $string['presentationnext'] = 'Next';

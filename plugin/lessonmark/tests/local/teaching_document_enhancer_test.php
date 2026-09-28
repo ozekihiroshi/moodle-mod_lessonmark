@@ -43,6 +43,11 @@ final class teaching_document_enhancer_test extends \advanced_testcase {
         ], $document->get_toc());
         $html = $document->get_content_html();
         $this->assertStringContainsString('class="mod_lessonmark-toc"', $html);
+        $dom = new \DOMDocument();
+        @$dom->loadHTML($html);
+        $xpath = new \DOMXPath($dom);
+        $this->assertSame(1, $xpath->query('//nav/details[not(@open)]/summary')->length);
+        $this->assertSame(3, $xpath->query('//nav/details/ol/li/a')->length);
         $this->assertStringContainsString(
             'href="#lessonmark-' . rawurlencode('日本語-見出し-2') . '"',
             $html

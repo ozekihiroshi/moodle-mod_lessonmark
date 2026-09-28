@@ -13,6 +13,8 @@ Markdown, and keep the lesson source editable and portable.
   inline or in a displayed block; use **Copy LaTeX** to reuse rendered formulas.
 - **One source for reading and teaching:** use the saved lesson as a reading
   page or slides, and present lessons continuously across a course in 0.3.
+- **Compact reading controls:** open Contents or Presentation options when needed.
+  Both use native keyboard-accessible disclosures and start collapsed on phones and desktops.
 - **Easy reuse:** paste Markdown source, import/export `.md` files, and retain
   editable formula and diagram notation instead of flattening it into images.
 

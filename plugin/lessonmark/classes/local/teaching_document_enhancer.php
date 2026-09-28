@@ -563,9 +563,10 @@ final class teaching_document_enhancer {
         $nav = $dom->createElement('nav');
         $nav->setAttribute('class', 'mod_lessonmark-toc');
         $nav->setAttribute('aria-label', get_string('tableofcontents', 'mod_lessonmark'));
-        $title = $dom->createElement('p', get_string('tableofcontents', 'mod_lessonmark'));
+        $details = $dom->createElement('details');
+        $title = $dom->createElement('summary', get_string('tableofcontents', 'mod_lessonmark'));
         $title->setAttribute('class', 'mod_lessonmark-toc__title');
-        $nav->appendChild($title);
+        $details->appendChild($title);
         $list = $dom->createElement('ol');
         $list->setAttribute('class', 'mod_lessonmark-toc__list');
         foreach ($toc as $entry) {
@@ -577,7 +578,8 @@ final class teaching_document_enhancer {
             $item->appendChild($link);
             $list->appendChild($item);
         }
-        $nav->appendChild($list);
+        $details->appendChild($list);
+        $nav->appendChild($details);
         $root->insertBefore($nav, $root->firstChild);
     }
 

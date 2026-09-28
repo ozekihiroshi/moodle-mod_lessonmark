@@ -137,6 +137,9 @@ if ($present) {
     );
     echo html_writer::end_div();
 } else {
+    echo html_writer::start_tag('details', ['class' => 'mod_lessonmark-reading-tools']);
+    echo html_writer::tag('summary', get_string('presentationoptions', 'mod_lessonmark'));
+    echo html_writer::start_div('mod_lessonmark-reading-tools__actions');
     foreach (\mod_lessonmark\local\course_presentation::modules($course) as $listedmodule) {
         if ((int) $listedmodule->id === (int) $cm->id) {
             echo html_writer::link(
@@ -152,6 +155,8 @@ if ($present) {
         get_string('presentation', 'mod_lessonmark'),
         ['class' => 'btn btn-secondary mod_lessonmark-presentation-launch mb-3']
     );
+    echo html_writer::end_div();
+    echo html_writer::end_tag('details');
 }
 if (!$present && trim((string) $lessonmark->intro) !== '') {
     echo $OUTPUT->box(format_module_intro('lessonmark', $lessonmark, $cm->id), 'generalbox mod_introbox');
