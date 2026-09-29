@@ -456,6 +456,11 @@ final class teaching_document_enhancer {
                 continue;
             }
             $sourceclass = trim(\core_text::strtolower($code->getAttribute('class')));
+            // Newer Moodle 5.2 puts the fenced-code language on pre; older
+            // versions put it on code. Accept both before applying our allowlist.
+            if ($sourceclass === '') {
+                $sourceclass = trim(\core_text::strtolower($pre->getAttribute('class')));
+            }
             $sourceclass = preg_replace('/^language-/', '', $sourceclass) ?? $sourceclass;
             $sourceclass = preg_split('/\s+/', $sourceclass, 2)[0] ?? '';
             if (in_array($sourceclass, ['math', 'latex', 'asciimath'], true)) {

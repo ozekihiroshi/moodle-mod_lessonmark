@@ -5,6 +5,7 @@
 - Keep reading pages compact with native Contents and Presentation options disclosures on desktop and mobile.
 - Preserve the contents list as navigation, rather than a sample answer, in PDF exports.
 - Cover opening presentation options in individual and continuous presentation browser tests.
+- Accept fenced-code language attributes on both `pre` and `code`, preserving compatibility with newer Moodle 5.2 rendering.
 
 ## 0.3.0-alpha5 - 2026-09-19
 

@@ -82,6 +82,19 @@ final class teaching_document_enhancer_test extends \advanced_testcase {
     }
 
     /**
+     * Both Moodle code-language placements retain code, formula and diagram handling.
+     */
+    public function test_accepts_code_language_on_pre(): void {
+        $enhancer = new teaching_document_enhancer();
+        foreach (['python', 'math', 'mermaid'] as $language) {
+            $oncode = $enhancer->enhance('<pre><code class="language-' . $language . '">source</code></pre>');
+            $onpre = $enhancer->enhance('<pre class="language-' . $language . '"><code>source</code></pre>');
+            $this->assertSame($oncode->get_content_html(), $onpre->get_content_html());
+            $this->assertSame($oncode->get_diagnostics(), $onpre->get_diagnostics());
+        }
+    }
+
+    /**
      * Tests that formula markers remain available to the local browser renderer.
      */
     public function test_preserves_formula_markers_without_code_diagnostics(): void {
