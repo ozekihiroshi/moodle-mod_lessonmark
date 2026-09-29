@@ -179,9 +179,14 @@ final class pdf_exporter {
             if (!$details instanceof \DOMElement || !$details->parentNode instanceof \DOMNode) {
                 continue;
             }
+            $istoc = $details->parentNode instanceof \DOMElement
+                && str_contains(' ' . $details->parentNode->getAttribute('class') . ' ', ' mod_lessonmark-toc ');
             $replacement = $dom->createElement('div');
-            $replacement->setAttribute('class', 'lessonmark-pdf-answer');
-            $heading = $dom->createElement('h4', get_string('pdfanswerheading', 'mod_lessonmark'));
+            $replacement->setAttribute('class', $istoc ? 'lessonmark-pdf-toc' : 'lessonmark-pdf-answer');
+            $heading = $dom->createElement(
+                $istoc ? 'p' : 'h4',
+                get_string($istoc ? 'tableofcontents' : 'pdfanswerheading', 'mod_lessonmark')
+            );
             $replacement->appendChild($heading);
             foreach (iterator_to_array($details->childNodes) as $child) {
                 if ($child instanceof \DOMElement && strtolower($child->tagName) === 'summary') {
@@ -191,7 +196,7 @@ final class pdf_exporter {
             }
             // Keep short text answers together; long answers must remain splittable.
             if (
-                \core_text::strlen($replacement->textContent) <= 600
+                !$istoc && \core_text::strlen($replacement->textContent) <= 600
                 && $replacement->getElementsByTagName('img')->length === 0
                 && $replacement->getElementsByTagName('table')->length === 0
                 && $replacement->getElementsByTagName('pre')->length === 0

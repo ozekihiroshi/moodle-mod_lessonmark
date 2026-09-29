@@ -22,6 +22,7 @@ Feature: Course presentations follow subsection display order
       | lessonmark | Lesson 1.2 | NESTED | 2 | second | # Second lesson slide |
       | lessonmark | Later lesson | NESTED | 1 | later | # Later lesson slide |
     When I am on the "Lesson 1.1" "lessonmark activity" page logged in as "participant"
+    And I click on ".mod_lessonmark-reading-tools > summary" "css_element"
     And I follow "Present course lessons"
     And I wait until "Lesson 2 / 4 · Slide 1 / 1" "text" exists
     When I press "Next"

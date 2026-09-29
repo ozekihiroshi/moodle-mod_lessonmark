@@ -76,6 +76,8 @@ final class pdf_exporter_test extends \advanced_testcase {
         $this->assertSame('0.265mm', $image->getAttribute('width'));
         $this->assertSame('0.265mm', $image->getAttribute('height'));
         $this->assertStringContainsString('Evidence.', $html);
+        $this->assertCount(1, $xpath->query('//div[@class="lessonmark-pdf-toc"]'));
+        $this->assertStringNotContainsString('<details', $html);
         $this->assertCount(1, $xpath->query('//div[@class="lessonmark-pdf-answer" and @nobr="true"]'));
         $this->assertCount(1, $xpath->query('//div[@class="lessonmark-pdf-response" and @nobr="true"]'));
         $this->assertCount(1, $xpath->query('//br[@pagebreak="true"]'));

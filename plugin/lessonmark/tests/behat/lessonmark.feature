@@ -104,6 +104,7 @@ Feature: Author and publish a LessonMark teaching resource
       Inline formula: `math:\frac{a}{b}`
       """
     And I press "Save and display"
+    And I click on ".mod_lessonmark-reading-tools > summary" "css_element"
     And I follow "Present this lesson"
     Then I should see "1 / 2"
     And I should see "First slide"
@@ -139,6 +140,7 @@ Feature: Author and publish a LessonMark teaching resource
       ```
       """
     And I press "Save and display"
+    And I click on ".mod_lessonmark-reading-tools > summary" "css_element"
     And I follow "Present course lessons"
     And I wait until "Lesson 1 / 2 · Slide 1 / 2" "text" exists
     Then I should see "Lesson 1 / 2 · Slide 1 / 2"
