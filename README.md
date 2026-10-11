@@ -3,37 +3,37 @@
 [![Moodle plugin CI](https://github.com/ozekihiroshi/moodle-mod_lessonmark/actions/workflows/moodle-plugin-ci.yml/badge.svg)](https://github.com/ozekihiroshi/moodle-mod_lessonmark/actions/workflows/moodle-plugin-ci.yml)
 [![License: GPL v3 or later](https://img.shields.io/badge/License-GPLv3%2B-blue.svg)](LICENSE)
 
-LessonMark turns Markdown into Moodle teaching material with **Mermaid
-diagrams, LaTeX and AsciiMath formulas, code examples, self-check exercises,
-and classroom presentations**. Write and preview in Moodle, reuse existing
-Markdown, and keep the lesson source editable and portable.
+Teach from editable Markdown. LessonMark lets teachers write, preview, and
+publish lessons inside Moodle, then present the same material in class.
+Diagrams, formulas, code examples, and ungraded self-checks stay alongside
+the explanation they support.
 
-- **Diagrams from text:** describe a process with Mermaid and preview the diagram.
-- **A choice of math notation:** write LaTeX or the more approachable AsciiMath,
-  inline or in a displayed block; use **Copy LaTeX** to reuse rendered formulas.
-- **One source for reading and teaching:** use the saved lesson as a reading
-  page or slides, and present lessons continuously across a course in 0.3.
-- **Compact reading controls:** open Contents or Presentation options when needed.
-  Both use native keyboard-accessible disclosures and start collapsed on phones and desktops.
-- **Easy reuse:** paste Markdown source, import/export `.md` files, and retain
-  editable formula and diagram notation instead of flattening it into images.
+Keep the source useful. Markdown import and export let you reuse technical
+and text-rich lessons across editors and courses, while Mermaid, LaTeX, and
+AsciiMath remain editable notation. Teachers can work entirely in Moodle;
+Git and an external editor are optional.
 
-It is designed for technical and text-rich lessons that should remain easy to
-review, translate, compare in Git, generate with authoring tools, and reuse
-outside one Moodle database. Teachers can still create and maintain the whole
-resource in Moodle without requiring Git, an external editor, Composer, or
-Node.js on the server.
+## Get LessonMark
 
-The plugin component is `mod_lessonmark`, targeting Moodle 5.2 on PHP 8.3 and 8.4.
+LessonMark is published on [Moodle Marketplace](https://marketplace.moodle.com/plugins/mod_lessonmark).
+Start there for the installable package and supported Moodle versions, then
+follow the [installation guide](docs/INSTALLATION.md).
 
-| Download | Status |
-| --- | --- |
-| [**Newest prerelease: 0.3.0-alpha5**](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.3.0-alpha5) | Evaluation build with continuous course presentation and the latest presentation-control and review fixes. |
-| [Stable release: 0.2.0](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.2.0) | The release currently labelled **Latest** by GitHub. |
+- **Documented prerelease:** [0.3.0-alpha6](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.3.0-alpha6),
+  an alpha for evaluation, including continuous course presentation.
+- **Stable GitHub release:** [0.2.0](https://github.com/ozekihiroshi/moodle-mod_lessonmark/releases/tag/v0.2.0).
+- **Component:** `mod_lessonmark` · Moodle 5.2 · PHP 8.3 / 8.4 · GPL v3 or later.
 
-GitHub's **Latest** label excludes prereleases. The 0.3.0-alpha5 build is newer
-than 0.2.0, but remains an alpha for evaluation. Download the installable
-`mod_lessonmark` ZIP attached to the chosen release.
+Choose the release that fits your use. Marketplace publication does not change
+an alpha release's maturity; GitHub's **Latest** label may point to an older
+stable release. Download the attached installable ZIP for your chosen version.
+
+Try one lesson first. Import a `.md` file or create a new LessonMark activity,
+preview a diagram or formula, save it, and open presentation mode.
+
+Use LessonMark on its own. The [Dual Learning course format](https://github.com/ozekihiroshi/moodle-format_duallearning)
+can organise the surrounding learning path, and the [Dual Learning theme](https://github.com/ozekihiroshi/moodle-theme_duallearning)
+can refine its reading and presentation layout. Neither is required.
 
 ![LessonMark Markdown editor and preview](docs/screenshots/lessonmark-authoring.png)
 
@@ -268,7 +268,7 @@ PDF, and locally bundled LaTeX, AsciiMath, and Mermaid rendering. Pinned Node
 dependencies and build scripts reproduce the committed browser assets without
 a CDN. These additions complement Moodle Quiz and Assignment.
 
-The newest published prerelease is **0.3.0-alpha5**. The 0.3 line adds continuous
+The current prerelease documented here is **0.3.0-alpha6**. The 0.3 line adds continuous
 course presentation; alpha2 incorporated Marketplace review fixes, and alpha3
 clarifies presentation labels and fullscreen controls. See the
 [change log](plugin/lessonmark/CHANGELOG.md) for release-by-release details.
