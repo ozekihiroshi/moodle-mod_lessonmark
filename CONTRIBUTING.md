@@ -4,6 +4,11 @@ Thank you for helping improve LessonMark.
 
 ## Before opening a change
 
+- Follow the shared development principles ([English](docs/DEVELOPMENT_PRINCIPLES.md) /
+  [日本語](docs/DEVELOPMENT_PRINCIPLES.ja.md)):
+  LessonMark, the Dual Learning course format, and the Dual Learning theme must
+  remain independently usable, with optional cooperation and clear ownership.
+  Explain the responsible component and verify the combinations affected by a change.
 - Use GitHub Issues for reproducible non-security defects and focused feature
   proposals.
 - Use the private process in `SECURITY.md` for vulnerabilities.

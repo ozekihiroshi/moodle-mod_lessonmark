@@ -1,5 +1,12 @@
 # Change log
 
+## 0.3.0-alpha7 - 2026-10-15
+
+- Open ordinary content links outside the continuous-presentation frame, so quizzes, assignments and reading pages no longer leave the presentation toolbar stuck loading.
+- Preserve in-page anchors, explicit link targets, downloads and modified clicks, and retain ordinary single-lesson presentation navigation.
+- Give the lesson selector the available width on narrow screens and enlarge presentation toolbar buttons to a minimum height of 44px.
+- Add controller and browser regression coverage for leaving continuous presentation.
+
 ## 0.3.0-alpha6 - 2026-09-29
 
 - Keep reading pages compact with native Contents and Presentation options disclosures on desktop and mobile.

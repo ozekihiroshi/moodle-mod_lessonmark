@@ -911,6 +911,19 @@
 }
 
 @media screen and (max-width: 40rem) {
+    .mod_lessonmark-course-toolbar select {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 44px;
+    }
+
+    .mod_lessonmark-course-header .btn,
+    .mod_lessonmark-course-toolbar .btn {
+        min-height: 44px;
+    }
+
     .mod_lessonmark-presentation .mod_lessonmark-slide {
         padding: .6em;
     }

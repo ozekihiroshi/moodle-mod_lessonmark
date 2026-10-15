@@ -280,6 +280,7 @@ release ZIP.
 
 ## Documentation
 
+- Shared development principles: independence and cooperation — [English](docs/DEVELOPMENT_PRINCIPLES.md) / [日本語](docs/DEVELOPMENT_PRINCIPLES.ja.md)
 - [Authoring guide](docs/AUTHORING_GUIDE.md)
 - [Installation and upgrade](docs/INSTALLATION.md)
 - [Product requirements](docs/PRODUCT_REQUIREMENTS.md)

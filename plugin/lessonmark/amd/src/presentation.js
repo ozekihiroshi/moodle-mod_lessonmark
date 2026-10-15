@@ -65,6 +65,26 @@ export const init = () => {
         };
         previous.addEventListener('click', () => move(-1));
         next.addEventListener('click', () => move(1));
+        root.addEventListener('click', event => {
+            if (!connected || event.defaultPrevented || event.button > 0 ||
+                    event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+                return;
+            }
+            const link = event.target.closest('a[href]');
+            if (!link || link.hasAttribute('download') ||
+                    (link.target && link.target !== '_self') || link.getAttribute('href').startsWith('#')) {
+                return;
+            }
+            const destination = new URL(link.href, window.location.href);
+            const currenturl = new URL(window.location.href);
+            if (!['http:', 'https:'].includes(destination.protocol) ||
+                    (destination.origin === currenturl.origin && destination.pathname === currenturl.pathname &&
+                    destination.search === currenturl.search && destination.hash)) {
+                return;
+            }
+            // Activities and ordinary reading pages must not replace the presentation iframe.
+            link.target = '_top';
+        });
         if (typeof window !== 'undefined' && window.parent !== window) {
             window.addEventListener('message', event => {
                 const message = event.data;

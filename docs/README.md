@@ -1,5 +1,8 @@
 # LessonMark documentation
 
+- Shared development principles ([English](DEVELOPMENT_PRINCIPLES.md) /
+  [日本語](DEVELOPMENT_PRINCIPLES.ja.md)): independence,
+  responsibility boundaries, optional cooperation, and change review
 - `PRODUCT_REQUIREMENTS.md`: v0.1 product scope and acceptance criteria
 - `TECHNICAL_DECISIONS.md`: architecture decisions and milestones
 - `MATH_AND_DIAGRAM_REQUIREMENTS.md`: accepted 0.2 mathematics and Mermaid

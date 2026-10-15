@@ -51,3 +51,26 @@ Feature: Course presentations follow subsection display order
       | role |
       | student |
       | editingteacher |
+
+  Scenario: Follow a Moodle link out of the continuous presentation frame
+    Given the following "users" exist:
+      | username | firstname | lastname | email |
+      | learner | Test | Learner | learner@example.com |
+    And the following "courses" exist:
+      | fullname | shortname | format |
+      | Linked lessons | LINKS | topics |
+    And the following "course enrolments" exist:
+      | user | course | role |
+      | learner | LINKS | student |
+    And the following "activities" exist:
+      | activity | name | course | section | markdownsource |
+      | lessonmark | Reading with a link | LINKS | 1 | [Open dashboard](/my/) |
+    When I am on the "Reading with a link" "lessonmark activity" page logged in as "learner"
+    And I click on ".mod_lessonmark-reading-tools > summary" "css_element"
+    And I follow "Present course lessons"
+    And I wait until "Lesson 1 / 1 · Slide 1 / 1" "text" exists
+    And I switch to "lessonmark-course-frame" iframe
+    And I follow "Open dashboard"
+    And I switch to the main frame
+    Then I should see "Dashboard"
+    And ".mod_lessonmark-course-presentation" "css_element" should not exist

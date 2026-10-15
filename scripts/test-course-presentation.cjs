@@ -110,7 +110,16 @@ async function main() {
         }});
     const childDocument = {readyState: 'complete', querySelector: () => childRoot,
         addEventListener() {}};
-    vm.runInNewContext(read('presentation.js'), {window: childWindow, document: childDocument});
+    childWindow.location.href = 'https://example.test/mod/lessonmark/view.php?id=11&present=1';
+    vm.runInNewContext(read('presentation.js'), {window: childWindow, document: childDocument, URL});
+    const follow = (href, attributes = {}, event = {}) => {
+        const link = {href: new URL(href, childWindow.location.href).href, target: '', ...attributes,
+            hasAttribute(name) { return name === 'download' && !!this.download; },
+            getAttribute() { return href; }};
+        childRoot.handlers.click({button: 0, target: {closest() { return link; }}, ...event});
+        return link.target;
+    };
+    assert.equal(follow('/mod/quiz/view.php?id=12'), ''); // Ordinary presentations keep native navigation.
     assert.equal(childSent.at(-1).action, 'ready');
     assert.equal(childSent.at(-1).cmid, '11');
     const command = (action, origin = window.location.origin) => childWindow.handlers.message({origin, source: parent,
@@ -122,6 +131,17 @@ async function main() {
     assert.equal(childStatus.textContent, '2 / 2');
     assert.equal(bar.hidden, true);
     assert.equal(childSent.at(-1).token, 7);
+    assert.equal(follow('/mod/quiz/view.php?id=12'), '_top');
+    assert.equal(follow('/mod/assign/view.php?id=13'), '_top');
+    assert.equal(follow('/mod/lessonmark/view.php?id=12'), '_top');
+    assert.equal(follow('/course/view.php?id=2'), '_top');
+    assert.equal(follow('#practice'), '');
+    assert.equal(follow(childWindow.location.href + '#practice'), '');
+    assert.equal(follow('/file.txt', {download: true}), '');
+    assert.equal(follow('https://other.test/', {target: '_blank'}), '_blank');
+    assert.equal(follow('mailto:teacher@example.test'), '');
+    assert.equal(follow('/mod/quiz/view.php?id=12', {}, {ctrlKey: true}), '');
+    assert.equal(follow('/mod/quiz/view.php?id=12', {}, {defaultPrevented: true}), '');
     focused = 'button';
     command('focus', 'https://evil.test');
     assert.equal(focused, 'button');
